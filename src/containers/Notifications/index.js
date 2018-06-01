@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import React, { Component } from 'react';
 import BreadCrumbs from '../../components/BreadCrumbs'
-
+import {connect} from 'react-redux'
+import {fetchNotifications} from './actions'
 
 const NotificationsContainer = styled.div`
     
@@ -17,19 +18,44 @@ const NotificationCard =  styled.div`
   border-radius: 4px;
 `
 
-export default class Notifications extends Component {
+class Notifications extends Component {
     constructor(props) {
         super()
     }
 
+    componentDidMount() {
+        this.props.fetchNotifications()
+    }
+
     render() {
+        console.log(this.props)
+            
         return (
             <NotificationsContainer>
                 <BreadCrumbs>
                     Notifications
                 </BreadCrumbs>
-                <NotificationsContent></NotificationsContent>
+                <NotificationsContent>
+
+                </NotificationsContent>
             </NotificationsContainer>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+      data : state
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+     fetchNotifications : () => dispatch(fetchNotifications())
+    }
+  }
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Notifications)

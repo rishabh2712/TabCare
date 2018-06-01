@@ -7,7 +7,7 @@ const initialState = {
   foo: null,
 };
 
-export function AppReducer(state = initialState, action) {
+export function appReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case LOAD_APP:

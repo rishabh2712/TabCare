@@ -3,23 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import configureStore from './configureStore';
+import configureStore from './store/configureStore'
 import createHistory from 'history/createBrowserHistory';
 
 // Create redux store with history
 
 const history = createHistory();
-const store = configureStore()
+const initialState = {}
+const store = configureStore(initialState, history)
 const MOUNT_NODE = document.getElementById('root');
 
 ReactDOM.render (
   <Provider store={store}>
-   <ConnectedRouter history={history}>
-      <App />
-   </ConnectedRouter>
+   <Router>
+     <App />
+   </Router>
   </Provider>,
   MOUNT_NODE
 )

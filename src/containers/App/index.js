@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import React, { Component } from 'react';
-
+import {connect} from 'react-redux'
 import Header from '../../components/Header'
 import CareReport from '../CareReport'
+import {loadApp} from './actions'
 
 const AppContainer = styled.div`
     display: flex;
@@ -15,13 +16,38 @@ const Content =  styled.div`
     width: 75%;
 `
 
-const App = () => (
-    <AppContainer>
-        <Header />
-        <Content >
-            
-        </Content>
-    </AppContainer>
-);
+class App extends Component {
+    componentDidMount() {
+        this.props.loadApp()
+    }
+    render() {
+        return(
+            <AppContainer>
+                <Header />
+                <Content >
+                    <Switch>
+                        <Route path='/' component = {CareReport} />               
+                    </Switch>
+                </Content>
+            </AppContainer>
 
-export default App;
+        )
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+      data : state
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+     loadApp : () => dispatch(loadApp)
+    }
+  }
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
