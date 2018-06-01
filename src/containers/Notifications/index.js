@@ -1,42 +1,45 @@
 import styled from 'styled-components';
 import React, { Component } from 'react';
 import BreadCrumbs from '../../components/BreadCrumbs'
+import NotificationList from './NotificationList'
+import Loading from '../../components/Loading.jsx'
 import {connect} from 'react-redux'
 import {fetchNotifications} from './actions'
 
-const NotificationsContainer = styled.div`
-    
 
+const NotificationsContainer = styled.div`
+    width: 100%
 `
+
 const NotificationsContent = styled.div`
-    width: inherit;
+    min-height: 130px;
+    width: 100%;
     background-color: #ffffff;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.12);
 `
-const NotificationCard =  styled.div`
-  height: 74px;
-  border-radius: 4px;
-`
 
 class Notifications extends Component {
-    constructor(props) {
-        super()
-    }
+constructor(props) {
+    super()
+}
 
-    componentDidMount() {
-        this.props.fetchNotifications()
-    }
+componentDidMount() {
+    this.props.fetchNotifications()
+}
 
-    render() {
-        console.log(this.props)
-            
+render() {
+    let {isLoading, items, success, error} = this.props.notifications   
         return (
             <NotificationsContainer>
                 <BreadCrumbs>
                     Notifications
                 </BreadCrumbs>
                 <NotificationsContent>
-
+                  {isLoading ? <Loading /> : 
+                    !isLoading && !items.length ? <div> No records found</div> :
+                    error ? <div>Something went wrong</div> :
+                    <NotificationList items={items}/>
+                  }
                 </NotificationsContent>
             </NotificationsContainer>
         )
@@ -45,7 +48,7 @@ class Notifications extends Component {
 
 const mapStateToProps = state => {
     return {
-      data : state
+      notifications : state.notifications
     }
   }
   

@@ -6,6 +6,7 @@ import Header from '../../components/Header'
 import CareReport from '../CareReport'
 import {loadApp} from './actions'
 
+
 const AppContainer = styled.div`
     display: flex;
     justify-content: center;

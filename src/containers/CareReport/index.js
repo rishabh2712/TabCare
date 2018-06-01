@@ -8,6 +8,7 @@ import Residents from '../Residents'
 import ResidentView from '../ResidentView'
 
 const ReportContainer = styled.div`
+    width: 100%;
 ` 
 
 class CareReport extends Component {

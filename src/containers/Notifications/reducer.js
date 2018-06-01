@@ -4,7 +4,7 @@ import {LOAD_NOTIFICATIONS} from './actions'
 const initialState = {
     isLoading: false,
     error: null,
-    foo: null,
+    items: [],
   };
   
 export function notifications(state = initialState, action) {
@@ -12,10 +12,10 @@ export function notifications(state = initialState, action) {
     switch (type) {
       case LOAD_NOTIFICATIONS:
         return handle(state, action, {
-          start: prevState => ({ ...prevState, isLoading: true, error: null, foo: null }),
+          start: prevState => ({ ...prevState, isLoading: true, error: null, items: [] }),
           finish: prevState => ({ ...prevState, isLoading: false }),
           failure: prevState => ({ ...prevState, error: payload }),
-          success: prevState => ({ ...prevState, foo: payload }),
+          success: prevState => ({ ...prevState, items: payload }),
           always: prevState => prevState, // unnecessary, for the sake of example
         });
       default:
