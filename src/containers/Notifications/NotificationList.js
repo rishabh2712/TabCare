@@ -83,7 +83,7 @@ const NotificationList = (list) => {
         arrows: true
       };
     return(
-        <div className= "container">
+        <div className= "container" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div className="row" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 {list.items.map((item,idx)=> 
                 <div>

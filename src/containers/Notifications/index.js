@@ -9,13 +9,14 @@ import Slider from 'react-slick'
 
 const NotificationsContainer = styled.div`
     width: 100%
+    margin-bottom: 16px;
 `
 
 const NotificationsContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 130px;
+    min-height: 235px;
     width: 100%;
     background-color: #ffffff;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.12);
@@ -42,9 +43,11 @@ render() {
       };
         return (
             <NotificationsContainer>
-                <BreadCrumbs>
-                    Notifications
-                </BreadCrumbs>
+                <BreadCrumbs  crumbs = {[
+                    {
+                        label: 'Notifications'
+                    }
+                ]}/>
                     <NotificationsContent>
                         {isLoading ? <Loading /> : 
                         !isLoading && !items.length ? <div> No records found</div> :
