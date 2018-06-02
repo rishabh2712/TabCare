@@ -5,13 +5,16 @@ import NotificationList from './NotificationList'
 import Loading from '../../components/Loading.jsx'
 import {connect} from 'react-redux'
 import {fetchNotifications} from './actions'
-
+import Slider from 'react-slick'
 
 const NotificationsContainer = styled.div`
     width: 100%
 `
 
 const NotificationsContent = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 130px;
     width: 100%;
     background-color: #ffffff;
@@ -29,18 +32,26 @@ componentDidMount() {
 
 render() {
     let {isLoading, items, success, error} = this.props.notifications   
+    const settings = {
+        dots: true,
+        fade: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 5,
+        slidesToScroll: 5
+      };
         return (
             <NotificationsContainer>
                 <BreadCrumbs>
                     Notifications
                 </BreadCrumbs>
-                <NotificationsContent>
-                  {isLoading ? <Loading /> : 
-                    !isLoading && !items.length ? <div> No records found</div> :
-                    error ? <div>Something went wrong</div> :
-                    <NotificationList items={items}/>
-                  }
-                </NotificationsContent>
+                    <NotificationsContent>
+                        {isLoading ? <Loading /> : 
+                        !isLoading && !items.length ? <div> No records found</div> :
+                        error ? <div>Something went wrong</div> :
+                        <NotificationList items={items}/>
+                        }
+                    </NotificationsContent>
             </NotificationsContainer>
         )
     }
