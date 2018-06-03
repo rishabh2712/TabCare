@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import Slider from 'react-slick'
+import SwipeableViews from 'react-swipeable-views';
 
 const NotificationBody =  styled.div`
     display: flex;
@@ -58,6 +58,7 @@ const NotificationContent = styled.div `
 `
 
 const NotificationCard = (item) => {
+    console.log(item)
     let obj = item.item
     return (
         <NotificationBody item={obj}>
@@ -72,27 +73,58 @@ const NotificationCard = (item) => {
 }
 
 
-const NotificationList = (list) => {
-    const settings = {
-        dots: true,
-        fade: true,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true
-      };
-    return(
-        <div className= "container" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <div className="row" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                {list.items.map((item,idx)=> 
-                <div>
-                    <NotificationCard item={item} key={idx}/>
+class NotificationList extends Component {
+    constructor(props) {
+        super()
+        this.state = {
+            index: 0, items: props.items, indexLimit:0
+        }
+        this.handleSlick = this.handleSlick.bind(this)
+    }
+
+    fetchSlides(items, buffer, offset) {
+        let arr = items.splice(offset, offset+8)
+        buffer.push(arr)
+        if(offset+8 < items.length) {
+            return this.fetchSlides(items, buffer, offset+8)
+        } else {
+            arr = items.splice(offset, items.length)
+            buffer.push(arr)
+            return buffer
+        }
+    }
+
+    handleSlick(index) {
+        this.setState({index})
+    }
+
+    render() {
+        const settings = {
+            dots: true,
+            fade: true,
+            infinite: false,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true
+          };
+        let slides = this.fetchSlides(this.state.items, [],  0)
+        return(
+            <div className= "container">
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <img src={process.env.PUBLIC_URL + "/assets/images/prev.png"} onClick={() => {this.handleSlick(this.state.index-1)}}/>
+                    <SwipeableViews index = {this.state.index}  containerStyle={{overflow: 'hidden'}}>
+                        {slides.map(slide =>
+                            <div className="row"style={{display: 'flex', justifyContent:'center'}}>
+                        {slide.map(item => <NotificationCard item={item} />)}
+                            </div>
+                        )}
+                    </SwipeableViews>
+                    <img src={process.env.PUBLIC_URL + "/assets/images/next.png"} onClick={() => {this.handleSlick(this.state.index+1)}}/>
                 </div>
-                )}
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default NotificationList

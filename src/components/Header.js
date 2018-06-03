@@ -32,7 +32,7 @@ const Header = () => (
             <div><img src={process.env.PUBLIC_URL + "/assets/images/logo.png"}/></div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="47" height="17" viewBox="0 0 47 17">
-                    <text fill="#1A1A1A" fill-rule="evenodd" font-family="SFUIText-Semibold, SF UI Text" font-size="22" font-weight="500" letter-spacing="-.528" transform="translate(-504 -18)">
+                    <text fill="#1A1A1A" fillRule="evenodd" fontFamily="SFUIText-Semibold, SF UI Text" fontSize="22" fontWeight="500" letterSpacing="-.528" transform="translate(-504 -18)">
                         <tspan x="503" y="34">Cera</tspan>
                     </text>
                 </svg>
